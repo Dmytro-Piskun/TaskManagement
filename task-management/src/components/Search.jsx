@@ -3,8 +3,8 @@ import search from '@/assets/search-icon.svg'
 
 const Search = () => {
     return (
-        <div className="size-12 glassy rounded-full flex hover:bg-slate-100 active:scale-95 transition-all px-4">
-        <Image src={search} alt='search'/>
+        <div className="cursor-pointer select-none size-12 glassy rounded-full flex hover:bg-slate-100 active:scale-95 transition-all px-4">
+        <Image src={search} alt='search' className='drag-none'/>
         </div>
     );
 };

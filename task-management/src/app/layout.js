@@ -3,6 +3,9 @@ import Image from 'next/image'
 import "./globals.css";
 import Navlink from "@/components/Navlink";
 import homeIcon from '@/assets/nav-icons/home.svg'
+import tasksIcon from '@/assets/nav-icons/tasks.svg'
+import calendarIcon from '@/assets/nav-icons/calendar.svg'
+
 import logo from '@/assets/logo.svg'
 import ThemeToggle from "@/components/ThemeToggle";
 import Search from "@/components/Search";
@@ -21,11 +24,11 @@ const jost = Jost({
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={jost.className + " bg-gradient-to-br from-slate-300 to-fuchsia-200"}>
-        <header className="h-32 p-10 grid grid-cols-3 grid-flow-col">
-          <div className="flex items-center gap-12">
-            <Image src={logo} alt="logo" width={50} />
-            <h1 className=" text-xl">Task Manager</h1>
+      <body className={jost.className + " text-neutral-900"}>
+        <header className=" select-none h-32 p-10 grid grid-cols-3 grid-flow-col">
+          <div className="flex items-center gap-20">
+            <Image src={logo} alt="logo" className="drag-none select-none shadow-sm rounded-full" width={50} />
+            <h1 className=" text-2xl  select-none">Chronoplan</h1>
           </div>
           <div className=" flex justify-center">
             <ThemeToggle />
@@ -35,14 +38,14 @@ export default function RootLayout({ children }) {
           </div>
         </header>
         <section className=" flex h-[calc(100vh-8rem)]">
-          <aside className="w-32 h-full flex justify-center items-center">
-            <nav className="flex flex-col gap-9 justify-center items-center h-fit ">
+          <aside className="w-32 h-full flex justify-center">
+            <nav className="flex flex-col gap-9 justify-center items-center h-fit m-48">
               <Navlink icon={homeIcon} />
-              <Navlink path="/tasks" />
-              <Navlink path="/calendar" />
+              <Navlink path="/tasks" icon={tasksIcon}/>
+              <Navlink path="/calendar" icon={calendarIcon}/>
             </nav>
           </aside>
-          <main className=" bg-black p-10  h-full w-full">{children}</main>
+          <main className="p-10  h-full w-full">{children}</main>
         </section>
       </body>
     </html>

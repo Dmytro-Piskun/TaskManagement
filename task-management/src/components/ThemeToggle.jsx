@@ -2,26 +2,34 @@
 import moonIcon from "@/assets/moon-icon.svg"
 import sunIcon from "@/assets/sun-icon.svg"
 import Image from "next/image";
-import { useState, useLayoutEffect } from "react";
+import { useState, useEffect } from "react";
 
 const ThemeToggle = () => {
-    const [isDark, setIsDark] = useState(false);
+    const [isDark, setIsDark] = useState(handleUserPreference);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const prefersDark = window.matchMedia(
             "(prefers-color-scheme: dark)"
         );
 
-        if (prefersDark.matches) {
-            setIsDark(true);
-        }
-
-        prefersDark.addEventListener("change", (e) => setIsDark(e.matches));
+        prefersDark.addEventListener("change", (e) =>setIsDark(e.matches));
 
         return () => {
             prefersDark.removeEventListener("change", (e) => setIsDark(e.matches));
         };
     }, []);
+
+    function handleUserPreference(){
+        const prefersDark = window.matchMedia(
+            "(prefers-color-scheme: dark)"
+        );
+
+        if (prefersDark.matches) {
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     function handleThemeChange(event) {
         event.preventDefault();
@@ -31,20 +39,22 @@ const ThemeToggle = () => {
         });
     }
 
-    let sliderClasses = "bg-white size-10 rounded-full top-1 left-1 absolute has-[:checked]:bg-blue-500 transition-all"
+    let sliderClasses = "bg-white size-8 rounded-full top-1 left-1 absolute transition-all"
 
     if (!isDark) {
         sliderClasses += " translate-x-10"
     }
 
-    return (<>
-        <label onClick={handleThemeChange} className="bg-slate-100 h-12 w-[5.5rem] rounded-full inline-block p-3 has-[:checked]:bg-red-100 flex justify-between relative active:scale-[0.97]">
+    const activeIcon = "z-10 transition-all scale-110 drag-none"
+    const inactiveIcon = "z-10 opacity-40 transition-all drag-none"
+
+    return (
+        <label onClick={handleThemeChange} className="cursor-pointer glassy select-none  h-10 w-20 translate-x-10 rounded-full inline-block p-3 flex justify-between relative active:scale-[0.97]">
             <input className="hidden" type="checkbox" id="themeToggle" />
             <div className={sliderClasses}></div>
-            <Image src={moonIcon} alt="light mode" width={22} className="z-10" />
-            <Image src={sunIcon} alt="dark mode" width={22} className="z-10" />
+            <Image src={moonIcon} alt="light mode" width={16} className={isDark ? activeIcon : inactiveIcon} />
+            <Image src={sunIcon} alt="dark mode" width={16} className={isDark ? inactiveIcon : activeIcon} />
         </label>
-    </>
     );
 };
 
