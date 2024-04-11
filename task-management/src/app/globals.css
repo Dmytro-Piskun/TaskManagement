@@ -2,18 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+*{
+box-sizing: border-box;
 }
 
 body {
@@ -24,4 +14,15 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+@layer components{
+  .glassy{
+  @apply backdrop-blur-lg backdrop-saturate-150 bg-white bg-opacity-60 rounded-xl border border-slate-300 border-opacity-30
+  }
+  /* backdrop-filter: blur(16px) saturate(136%);
+  -webkit-backdrop-filter: blur(16px) saturate(136%);
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 12px;
+  border: 1px solid rgba(209, 213, 219, 0.3); */
 }
