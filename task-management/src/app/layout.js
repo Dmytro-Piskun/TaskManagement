@@ -1,20 +1,20 @@
 import { Jost } from "next/font/google";
 import Image from 'next/image'
 import "./globals.css";
-import Navlink from "@/components/Navlink";
+import Navlink from "@/components/layout/Navlink";
 import homeIcon from '@/assets/nav-icons/home.svg'
 import tasksIcon from '@/assets/nav-icons/tasks.svg'
 import calendarIcon from '@/assets/nav-icons/calendar.svg'
 
 import logo from '@/assets/logo.svg'
-import ThemeToggle from "@/components/ThemeToggle";
-import Search from "@/components/Search";
+import ThemeToggle from "@/components/layout/ThemeToggle";
+import Search from "@/components/layout/Search";
 
 export const metadata = {
   title: "Task Management",
   description: "Make yourself productive by tracking your tasks and performance",
 };
-
+ 
 const jost = Jost({
   weight: '400',
   subsets: ['latin'],
@@ -45,7 +45,9 @@ export default function RootLayout({ children }) {
               <Navlink path="/calendar" icon={calendarIcon}/>
             </nav>
           </aside>
-          <main className="p-10  h-full w-full">{children}</main>
+          <main className="h-full w-full p-10 pt-14  bpla overflow-y-auto">
+              {children}
+          </main>
         </section>
       </body>
     </html>

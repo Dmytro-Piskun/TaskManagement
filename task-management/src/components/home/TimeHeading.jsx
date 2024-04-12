@@ -19,7 +19,7 @@ const TimeHeading = () => {
     }
     if (currentHours >= 18 || currentHours < 4) {
         headingText = "Good evening!"
-        subheadingText = "Let`s finish the day productively."
+        subheadingText = "Let`s spend the rest of the day productively."
     }
 
     return (

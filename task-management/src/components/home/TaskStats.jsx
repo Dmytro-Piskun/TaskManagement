@@ -2,7 +2,7 @@
 const TaskStats = () => {
     return (
         <>
-        Tasks    completed 
+        Tasks completed 
         Productivity streak
         </>
     );
