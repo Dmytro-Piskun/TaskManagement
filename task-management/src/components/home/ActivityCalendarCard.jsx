@@ -3,8 +3,7 @@ const ActivityCalendar = () => {
 
     const now = new Date();
     const year = now.getFullYear();
-    // const month = now.getMonth();
-    const month = 2;
+    const month = now.getMonth();
 
     const daysOfWeek = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
     const monthNames = [
@@ -20,29 +19,49 @@ const ActivityCalendar = () => {
         "October",
         "November",
         "December"
-      ];
+    ];
 
     const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const daysInPrevMonth = new Date(year, month, 0).getDate();
     const firstDayOfMonth = new Date(year, month, 1).getDay();
 
-    console.log("daysInMonth",daysInMonth)
-    console.log("firstDayOfMonth",firstDayOfMonth)
+    const getPrevMonthDates = () => {
+        const prevMonthDates = [];
+        const startingDay = daysInPrevMonth - firstDayOfMonth + 1;
+        for (let i = startingDay; i <= daysInPrevMonth; i++) {
+            prevMonthDates.push(i);
+        }
+        return prevMonthDates;
+    };
+
+    const getMonthDates = () => {
+        const monthDates = [];
+        for (let i = 1; i <= daysInMonth; i++) {
+            monthDates.push(i);
+        }
+        return monthDates;
+    };
+
+    const getNextMonthDates = () => {
+        const nextMonthDates = [];
+        const remainingDays = 7 - ((getPrevMonthDates().length + getMonthDates().length) % 7);
+        for (let i = 1; i <= remainingDays; i++) {
+            nextMonthDates.push(i);
+        }
+        return nextMonthDates;
+    };
 
     return (
         <div>
-            <header>{monthNames[month]} {year}</header>
-            <div className="grid grid-cols-7 grid-rows-6">
-
+            <header className="mb-2 font-semibold">{monthNames[month]} {year}</header>
+            <div className="grid grid-cols-7 grid-rows-6 gap-1 place-items-center">
+                {daysOfWeek.map((day) => <div className="p-3 font-semibold">{day}</div>)}
+                {getPrevMonthDates().map((day) =><div className=" text-gray-400 p-3">{day}</div>)}
+                {getMonthDates().map((day) =><div className=" text-gray-900 p-3">{day}</div>)}
+                {getNextMonthDates().map((day) =><div className=" text-gray-400 p-3">{day}</div>)}
             </div>
         </div>
     );
-    // .parent {
-    //     display: grid;
-    //     grid-template-columns: repeat(7, 1fr);
-    //     grid-template-rows: repeat(6, 1fr);
-    //     grid-column-gap: 0px;
-    //     grid-row-gap: 0px;
-    //     }
 };
 
 export default ActivityCalendar;

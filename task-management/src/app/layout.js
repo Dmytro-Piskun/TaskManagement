@@ -45,7 +45,7 @@ export default function RootLayout({ children }) {
               <Navlink path="/calendar" icon={calendarIcon}/>
             </nav>
           </aside>
-          <main className="h-full w-full p-10 pt-14  bpla overflow-y-auto">
+          <main className="h-full w-full p-10 pt-14 overflow-y-auto">
               {children}
           </main>
         </section>

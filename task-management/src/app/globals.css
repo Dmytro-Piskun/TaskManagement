@@ -38,9 +38,15 @@ body {
   }
 }
 
-.bpla{
+.mask{
   -webkit-mask-image: linear-gradient(to bottom, transparent 1%, black 8%); /* Apply mask */
   mask-image: linear-gradient(to bottom, transparent 1%, black 8%); /* Apply mask */
   mask-clip: padding-box;
   -webkit-mask-clip: padding-box;
+}
+
+.pp{
+  width: 30px;
+  height: 30px;
+  background-color: aqua;
 }

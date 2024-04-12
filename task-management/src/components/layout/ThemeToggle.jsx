@@ -1,6 +1,7 @@
 'use client'
 import moonIcon from "@/assets/moon-icon.svg"
 import sunIcon from "@/assets/sun-icon.svg"
+import { requestToBodyStream } from "next/dist/server/body-streams";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
@@ -8,15 +9,20 @@ const ThemeToggle = () => {
     const [isDark, setIsDark] = useState(handleUserPreference);
 
     useEffect(() => {
-        const prefersDark = window.matchMedia(
-            "(prefers-color-scheme: dark)"
-        );
-
-        prefersDark.addEventListener("change", (e) =>setIsDark(e.matches));
-
-        return () => {
-            prefersDark.removeEventListener("change", (e) => setIsDark(e.matches));
-        };
+        if(localStorage.getItem("prefered color theme")){
+            setIsDark(localStorage.getItem("prefered color theme")==="dark"?true:false)
+        }
+        else{
+            const prefersDark = window.matchMedia(
+                "(prefers-color-scheme: dark)"
+            );
+    
+            prefersDark.addEventListener("change", (e) =>setIsDark(e.matches));
+    
+            return () => {
+                prefersDark.removeEventListener("change", (e) => setIsDark(e.matches));
+            };
+        }
     }, []);
 
     function handleUserPreference(){
@@ -35,6 +41,7 @@ const ThemeToggle = () => {
         event.preventDefault();
         setIsDark((prevIsDark) => {
             const newIsDark = !prevIsDark;
+            localStorage.setItem("prefered color theme",newIsDark?"dark":"light")
             return newIsDark;
         });
     }

@@ -8,11 +8,15 @@ const Navlink = ({icon,alt,path = "/",...props}) => {
  
  const isActive = pathname===path;
 
- let classes = "select-none size-12 rounded-full flex justify-center items-center hover:backdrop-brightness-110 active:scale-95 transition-all glassy p-2" 
+ let classes = "select-none size-12 rounded-full flex justify-center items-center active:scale-95 transition-all glassy p-2" 
 
  if(isActive){
     classes += " bg-neutral-900"
  }
+ else{
+    classes += " hover:bg-slate-100"
+ }
+
     return (
         <Link href={path} {...props}>
             <i className={classes}>
