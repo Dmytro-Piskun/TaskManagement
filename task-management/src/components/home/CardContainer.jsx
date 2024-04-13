@@ -10,7 +10,7 @@ const CardContainer = ({ title, subtitle, children, link, linkIcon,linkAlt, clas
     }
 
     return (
-        <section className="glassy w-fit p-2 rounded-[2rem]">
+        <section className="glassy w-fit p-3 rounded-[1.8rem]">
             <header className="p-2 flex justify-between" >
                 <div>
                     <h1 className="text-xl font-bold">{title}</h1>

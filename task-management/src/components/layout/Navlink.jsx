@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 const Navlink = ({icon,alt,path = "/",...props}) => {
  const pathname = usePathname();
  
- const isActive = pathname===path;
+ const isActive = path.endsWith(pathname);
 
  let classes = "select-none size-12 rounded-full flex justify-center items-center active:scale-95 transition-all glassy p-2" 
 

@@ -3,7 +3,7 @@ import TimeHeading from "@/components/home/TimeHeading";
 import TodaysTasks from "@/components/home/TodaysTasksCard";
 import TodaysActivities from "@/components/home/TodaysActivitiesCard";
 import TaskCompletionGraph from "@/components/home/TaskCompletionGraphCard";
-import ActivityCalendar from "@/components/home/ActivityCalendarCard";
+import ActivityCalendar from "@/components/home/ActivityCalendarCard/ActivityCalendarCard";
 import CardContainer from "@/components/home/CardContainer";
 import calendarIcon from '@/assets/nav-icons/calendar.svg'
 
@@ -15,7 +15,7 @@ export default function Home() {
       <TaskStats />
     </header>
     <main className="mt-10 g">
-      <CardContainer title={"Calendar"} subtitle={"How busy ur days are"} link={"/tasks"} linkIcon={calendarIcon}>
+      <CardContainer title={"Calendar"} subtitle={"How busy ur days are"} link={"/calendar"} linkIcon={calendarIcon}>
         <ActivityCalendar />
       </CardContainer>
 

@@ -9,6 +9,7 @@ import calendarIcon from '@/assets/nav-icons/calendar.svg'
 import logo from '@/assets/logo.svg'
 import ThemeToggle from "@/components/layout/ThemeToggle";
 import Search from "@/components/layout/Search";
+import StoreProvider from "@/lib/StoreProvider";
 
 export const metadata = {
   title: "Task Management",
@@ -23,6 +24,7 @@ const jost = Jost({
 
 export default function RootLayout({ children }) {
   return (
+    <StoreProvider>
     <html lang="en">
       <body className={jost.className + " text-neutral-900"}>
         <header className=" select-none h-32 p-10 grid grid-cols-3 grid-flow-col">
@@ -51,5 +53,6 @@ export default function RootLayout({ children }) {
         </section>
       </body>
     </html>
+    </StoreProvider>
   );
 }

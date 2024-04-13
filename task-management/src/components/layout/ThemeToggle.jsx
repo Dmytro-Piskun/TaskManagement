@@ -1,54 +1,43 @@
 'use client'
 import moonIcon from "@/assets/moon-icon.svg"
 import sunIcon from "@/assets/sun-icon.svg"
-import { requestToBodyStream } from "next/dist/server/body-streams";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import {useDispatch, useSelector} from "react-redux";
+import { themeActions } from "@/lib/features/ui/theme-slice";
 
 const ThemeToggle = () => {
-    const [isDark, setIsDark] = useState(handleUserPreference);
+    const theme = useSelector(state=>state.theme)
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        if(localStorage.getItem("prefered color theme")){
-            setIsDark(localStorage.getItem("prefered color theme")==="dark"?true:false)
-        }
-        else{
+        if(!localStorage.getItem("prefered color theme")){
             const prefersDark = window.matchMedia(
                 "(prefers-color-scheme: dark)"
             );
     
-            prefersDark.addEventListener("change", (e) =>setIsDark(e.matches));
+            prefersDark.addEventListener("change", (e) =>dispatch(themeActions.handleThemeChange({isDark:e.matches})));
     
             return () => {
-                prefersDark.removeEventListener("change", (e) => setIsDark(e.matches));
+                prefersDark.addEventListener("change", (e) =>dispatch(themeActions.handleThemeChange({isDark:e.matches})));
             };
+        }
+        else{
+            
+            dispatch(themeActions.handleThemeChange({isDark:localStorage.getItem("prefered color theme")==="dark"?true:false})) 
         }
     }, []);
 
-    function handleUserPreference(){
-        const prefersDark = window.matchMedia(
-            "(prefers-color-scheme: dark)"
-        );
-
-        if (prefersDark.matches) {
-            return true;
-        }else{
-            return false;
-        }
-    }
 
     function handleThemeChange(event) {
         event.preventDefault();
-        setIsDark((prevIsDark) => {
-            const newIsDark = !prevIsDark;
-            localStorage.setItem("prefered color theme",newIsDark?"dark":"light")
-            return newIsDark;
-        });
+        localStorage.setItem("prefered color theme",theme==="dark"?"light":"dark");
+        dispatch(themeActions.handleThemeChange({isDark:theme==="light"?true:false}));
     }
 
     let sliderClasses = "bg-white size-8 rounded-full top-1 left-1 absolute transition-all"
 
-    if (!isDark) {
+    if (theme==="light") {
         sliderClasses += " translate-x-10"
     }
 
@@ -59,8 +48,8 @@ const ThemeToggle = () => {
         <label onClick={handleThemeChange} className="cursor-pointer glassy select-none  h-10 w-20 translate-x-10 rounded-full inline-block p-3 flex justify-between relative active:scale-[0.97]">
             <input className="hidden" type="checkbox" id="themeToggle" />
             <div className={sliderClasses}></div>
-            <Image src={moonIcon} alt="light mode" width={16} className={isDark ? activeIcon : inactiveIcon} />
-            <Image src={sunIcon} alt="dark mode" width={16} className={isDark ? inactiveIcon : activeIcon} />
+            <Image src={moonIcon} alt="light mode" width={16} className={theme==="dark" ? activeIcon : inactiveIcon} />
+            <Image src={sunIcon} alt="dark mode" width={16} className={theme==="dark" ? inactiveIcon : activeIcon} />
         </label>
     );
 };
